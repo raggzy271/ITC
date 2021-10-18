@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block pageTitle %}{% endblock pageTitle %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <a href ="{% url 'index' %}"><img src="{% static 'images/Bounce Fills Logo-01.png' %}" alt="Logo" id="logo"></a>
+    </header>
+    <main>
+        {% block main %}{% endblock main %}
+    </main>
+    <div id="loading">
+        <img src="{% static 'images/loading.gif' %}" id="loading-img">
+    </div>
+    <div id="messages"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/messages.js' %}"></script>
+    {% block bodyEnd %}{% endblock bodyEnd %}
+</body>
+
+</html>

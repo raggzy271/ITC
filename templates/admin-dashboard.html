@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block pageTitle %}Admin Dashboard{% endblock pageTitle %}
+
+{% block main %}
+<section class="section" id="admin-dashboard-section">
+    <h2 id="heading">Admin Dashboard</h2>
+    <div id="dashboard-home">
+        <h3 class="small-heading">Hello, admin!</h3>
+        <div id="dashboard-buttons">
+            <button class="button dashboard-button" id="view-all-uploads">View All Uploads</button>
+            <button class="button dashboard-button" id="view-branch-uploads">View Branch Uploads</button>
+            <button class="button dashboard-button" id="view-section-uploads">View Section Uploads</button>
+        </div>
+    </div>
+    <div id="all-uploads" class="dashboard-div">
+        <h3 class="small-heading">All Uploads</h3>
+        <div class="table-container" id="all-uploads-table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Branch</th>
+                        <th>AE Section</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>File Size</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody id="all-uploads-tbody">
+                    {% for entry in alluploads %}
+                    <tr>
+                        <td>{{ entry.0 }}</td>
+                        <td>{{ entry.1 }}</td>
+                        <td>{{ entry.2 }}</td>
+                        <td>{{ entry.3}}</td>
+                        <td>{{ entry.4 }}</td>
+                        <td>{{ entry.5 }}</td>
+                        <td>{{ entry.6 }}</td>
+                        <td><a href="{{ entry.7 }}" class="table-link" download>Download</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="branch-uploads" class="dashboard-div">
+        <h3 class="small-heading">Branch Uploads</h3>
+        <div class="filters">
+            <div class="input-container filter">
+                <label for="branch-select-bu" class="label">Branch</label>
+                <select name="branch" id="branch-select-bu" class="select" required>
+                    <option disabled selected>Choose one</option>
+                </select>
+            </div>
+        </div>
+        <a href="" id="download-all" download>Download All Branch Uploads</a>
+        <div class="table-container" id="branch-uploads-table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>AE Section</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>No. of Photos</th>
+                        <th>Space Used</th>
+                        <th>Space Left</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody id="branch-uploads-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="section-uploads" class="dashboard-div">
+        <h3 class="small-heading">Section Uploads</h3>
+        <div class="filters">
+            <div class="input-container filter">
+                <label for="branch-select-su" class="label">Branch</label>
+                <select name="branch" id="branch-select-su" class="select" required>
+                    <option disabled selected>Choose one</option>
+                </select>
+            </div>
+            <div class="input-container filter">
+                <label for="section-select-su" class="label">AE Section</label>
+                <select name="section" id="section-select-su" class="select" required>
+                    <option disabled selected>Choose one</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-container" id="section-uploads-table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>AE Section</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>File Size</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody id="section-uploads-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+    <button class="button" id="go-back">Go Back</button>
+</section>
+{% endblock main %}
+
+{% block bodyEnd %}
+<a href="{% url 'logout' %}" class="admin-login-logout">Logout</a>
+<script>
+    const branches = {{ branches|safe }};
+    const csrftoken = '{{ csrf_token }}';
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/load.js' %}"></script>
+<script src="{% static 'js/tables.js' %}"></script>
+<script src="{% static 'js/admin-dashboard.js' %}"></script>
+{% endblock bodyEnd %}

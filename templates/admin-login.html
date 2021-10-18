@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block pageTitle %}Admin Login{% endblock pageTitle %}
+
+{% block main %}
+<section class="section" id="admin-login-section">
+    <h2 id="heading">Admin Login</h2>
+    <form action="{% url 'admin_form' %}" method="post" id="admin-login-form" class="form" novalidate>
+        {% csrf_token %}
+        <div class="input-container">
+            <label for="username-input" class="label">Username</label>
+            <input type="text" name="username" id="username-input" class="input" required autofocus>
+        </div>
+        <div class="input-container">
+            <label for="password-input" class="label">Password</label>
+            <input type="password" name="password" id="password-input" class="input" required>
+        </div>
+        <button type="submit" class="button">Login</button>
+    </form>
+</section>
+{% endblock main %}
+
+{% block bodyEnd %}
+<script src="{% static 'js/admin-login.js' %}"></script>
+{% endblock bodyEnd %}
